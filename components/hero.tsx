@@ -28,11 +28,11 @@ export function Hero() {
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
-            href="#ipo"
+            href="#dashboard"
             className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105"
           >
             <Rocket className="h-5 w-5" />
-            About the IPO Airdrop
+            BUY $SPCX6900
           </a>
           <a
             href="#dashboard"
