@@ -16,7 +16,7 @@ export function SiteHeader() {
         <a href="#top" className="flex items-center gap-2">
           <RocketMark className="block h-8 w-8" />
           <span className="font-mono text-lg font-bold tracking-tight text-foreground">
-            SPCX<span className="text-primary">6900</span>
+            SPCX<span className="text-primary"> Mission</span>
           </span>
         </a>
 
