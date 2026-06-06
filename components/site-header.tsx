@@ -1,5 +1,13 @@
 import { RocketMark } from "@/components/rocket-mark"
-import { Rocket, Globe, Send } from "lucide-react"
+import { Rocket, Send } from "lucide-react"
+
+function XLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  )
+}
 
 export function SiteHeader() {
   return (
@@ -27,10 +35,10 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <a
             href="#"
-            aria-label="Website"
-            className="hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:block"
+            aria-label="Follow on X"
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
-            <Globe className="h-4 w-4" />
+            <XLogo className="h-4 w-4" />
           </a>
           <a
             href="#"
@@ -44,7 +52,7 @@ export function SiteHeader() {
             className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
           >
             <Rocket className="h-4 w-4" />
-            Launch
+            BUY $SPCX6900
           </a>
         </div>
       </div>
