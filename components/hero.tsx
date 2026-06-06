@@ -1,79 +1,86 @@
-import { RocketMark } from "@/components/rocket-mark"
+import { OrbitalGraphic } from "@/components/orbital-graphic"
+import { Panel } from "@/components/panel"
+import { Rocket, LineChart, Users } from "lucide-react"
 
 export function Hero() {
   return (
-    <section className="mx-auto max-w-7xl border-x-2 border-foreground px-4 py-8 sm:px-6">
-      <div className="grid gap-6 md:grid-cols-3 md:divide-x md:divide-border">
-        {/* Left: lead image */}
-        <figure className="md:pr-6">
-          <div className="flex aspect-[4/5] items-center justify-center border border-foreground bg-secondary">
-            <RocketMark className="h-32 w-32" />
-          </div>
-          <figcaption className="mt-2 text-center text-xs italic text-muted-foreground">
-            ($SPCX6900 EXPLAINER FOR MID CURVE)
-          </figcaption>
-        </figure>
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="grid gap-4 lg:grid-cols-[1.05fr_1.4fr_1fr]">
+        {/* LEFT — terminal graphic */}
+        <Panel label="MISSION FEED" className="overflow-hidden">
+          <OrbitalGraphic />
+        </Panel>
 
-        {/* Middle: The Big Take */}
-        <article className="md:px-6">
-          <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
+        {/* CENTER — the big take */}
+        <div className="flex flex-col justify-center px-1 py-2 lg:px-4">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--color-negative)]">
             The Big Take
-          </p>
-          <h1 className="mt-1 text-balance font-mono text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl">
-            The most hyped IPO of all time is coming &mdash; and holders get the airdrop
+          </span>
+          <h1 className="mt-4 text-balance font-mono text-3xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-4xl xl:text-5xl">
+            The most hyped IPO of all time is coming — and holders get the airdrop
           </h1>
-          <div className="mt-3 text-sm leading-relaxed text-foreground/90 [&>p]:mb-3">
-            <p>
-              SpaceX is going public, and SPCX6900 is the ticket aboard. In a
-              moment that could redefine how retail accesses the biggest listing
-              in market history, thousands are coming to grips with a simple
-              truth: you no longer need a broker, a waitlist, or accreditation to
-              ride the rocket.
-            </p>
-            <p>
-              Every SPCX6900 holder is slated to be{" "}
-              <strong>airdropped SPCX xStock</strong> &mdash; tokenized exposure
-              to the listing &mdash; proportional to their position when the
-              snapshot is taken. Hold the token, claim a slice of the launch. The
-              bigger the bag, the bigger the drop.
-            </p>
-            <p>
-              This is more than a meme. It is a redefinition of who gets a seat at
-              the table for the IPO of the century.
-            </p>
-          </div>
-        </article>
+          <p className="mt-5 max-w-xl text-pretty leading-relaxed text-muted-foreground">
+            SPCX6900 is the unofficial Solana meme ticket for everyone who wants
+            a seat before the rocket leaves the pad.
+          </p>
+          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted-foreground">
+            No broker. No waitlist. No accreditation. Just the chart, the
+            manifest, and the launch.
+          </p>
 
-        {/* Right: WTF is SPCX6900 */}
-        <aside className="md:pl-6">
-          <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
-            WTF is SPCX6900?
-          </p>
-          <div className="mt-3 flex justify-center">
-            <div className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-foreground bg-secondary">
-              <RocketMark className="h-16 w-16" />
-            </div>
-          </div>
-          <p className="mt-3 text-center font-mono text-lg font-bold text-foreground">
-            This tiny coin is launching to orbit.
-          </p>
-          <p className="mt-2 text-center text-sm leading-relaxed text-foreground/90">
-            Go search &quot;SPCX6900&quot; on X. Go ask about the SpaceX IPO. Go
-            check the top 100 holders below. We are{" "}
-            <strong>
-              <em>everywhere</em>
-            </strong>
-            .
-          </p>
-          <div className="mt-4 flex justify-center">
+          <div className="mt-7 flex flex-wrap gap-3">
             <a
-              href="#dashboard"
-              className="rounded-sm bg-foreground px-5 py-2 text-sm font-bold text-background transition-transform hover:scale-105"
+              href="#buy"
+              className="inline-flex items-center gap-2 border border-[var(--color-negative)] bg-[var(--color-negative)]/15 px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-[var(--color-negative)]/25"
             >
+              <Rocket className="h-4 w-4" />
               BUY $SPCX6900
             </a>
+            <a
+              href="#chart"
+              className="inline-flex items-center gap-2 border border-border bg-card px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-secondary"
+            >
+              <LineChart className="h-4 w-4" />
+              VIEW CHART
+            </a>
+            <a
+              href="/dashboard"
+              className="inline-flex items-center gap-2 border border-border bg-card px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-secondary"
+            >
+              <Users className="h-4 w-4" />
+              SEE FLIGHT MANIFEST
+            </a>
           </div>
-        </aside>
+        </div>
+
+        {/* RIGHT — WTF card */}
+        <Panel label="WTF IS SPCX6900?" className="flex flex-col">
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <p className="text-pretty leading-relaxed text-foreground">
+              This tiny coin is launching to orbit.
+            </p>
+            <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+              Go search SPCX6900 on X. Go ask about the SpaceX IPO. Go check the
+              top holders. The ticker is everywhere.
+            </p>
+            <div className="mt-auto grid grid-cols-2 gap-px border border-border bg-border">
+              <div className="bg-card px-3 py-3">
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Network
+                </div>
+                <div className="mt-1 font-mono text-sm font-bold text-foreground">Solana</div>
+              </div>
+              <div className="bg-card px-3 py-3">
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Status
+                </div>
+                <div className="mt-1 font-mono text-sm font-bold text-[var(--color-positive)]">
+                  LIVE
+                </div>
+              </div>
+            </div>
+          </div>
+        </Panel>
       </div>
     </section>
   )
