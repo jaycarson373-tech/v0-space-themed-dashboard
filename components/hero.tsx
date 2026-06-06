@@ -13,7 +13,7 @@ export function Hero() {
           The most hyped IPO of all time · holders airdropped SPCX xStock
         </div>
 
-        <RocketMark className="mb-6 block h-20 w-20 animate-float drop-shadow-[0_0_30px_oklch(0.72_0.19_47_/_0.5)]" />
+        <RocketMark className="mb-6 block h-20 w-20 animate-float drop-shadow-[0_0_30px_oklch(1_0_0_/_0.4)]" />
 
         <h1 className="max-w-3xl text-balance font-mono text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-6xl">
           SPCX<span className="text-primary">6900</span> · The IPO of the Century
