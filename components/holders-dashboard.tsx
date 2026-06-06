@@ -46,18 +46,11 @@ export function HoldersDashboard() {
         </div>
         <RefreshStatus
           fetchedAt={data?.fetchedAt}
-          isLive={data?.isLive}
           isRefreshing={manualRefreshing || isValidating}
           intervalMs={REFRESH_MS}
           onRefresh={onRefresh}
         />
       </div>
-
-      {data?.note && (
-        <p className="mt-4 rounded-md border border-border bg-card/60 px-4 py-2 text-xs text-muted-foreground">
-          {data.note}
-        </p>
-      )}
 
       <div className="mt-8">
         <StatCards data={data} isLoading={isLoading && !data} />
