@@ -64,7 +64,7 @@ function buildMock(): HoldersResponse {
     isLive: false,
     note: TOKEN_MINT
       ? "Showing simulated data — live fetch unavailable."
-      : "Set NEXT_PUBLIC_TOKEN_MINT to the SPCX6900 mint address for live data.",
+      : "Showing simulated holder data.",
   }
 }
 
