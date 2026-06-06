@@ -1,5 +1,5 @@
 import { RocketMark } from "@/components/rocket-mark"
-import { Github, Send, Twitter } from "lucide-react"
+import { Globe, Send, MessageCircle } from "lucide-react"
 
 export function SiteFooter() {
   return (
@@ -14,7 +14,7 @@ export function SiteFooter() {
         </div>
 
         <div className="flex items-center gap-3">
-          {[Twitter, Send, Github].map((Icon, i) => (
+          {[MessageCircle, Send, Globe].map((Icon, i) => (
             <a
               key={i}
               href="#"

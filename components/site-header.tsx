@@ -1,5 +1,5 @@
 import { RocketMark } from "@/components/rocket-mark"
-import { Rocket, Github, Send } from "lucide-react"
+import { Rocket, Globe, Send } from "lucide-react"
 
 export function SiteHeader() {
   return (
@@ -27,10 +27,10 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <a
             href="#"
-            aria-label="GitHub"
+            aria-label="Website"
             className="hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:block"
           >
-            <Github className="h-4 w-4" />
+            <Globe className="h-4 w-4" />
           </a>
           <a
             href="#"
