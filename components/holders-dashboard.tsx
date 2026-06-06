@@ -9,7 +9,11 @@ import { RefreshStatus } from "@/components/refresh-status"
 
 const REFRESH_MS = 15 * 60 * 1000 // 15 minutes
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json() as Promise<HoldersResponse>)
+const fetcher = async (url: string) => {
+  const r = await fetch(url)
+  if (!r.ok) throw new Error("Failed to load holder data")
+  return r.json() as Promise<HoldersResponse>
+}
 
 export function HoldersDashboard() {
   const { data, error, isLoading, mutate, isValidating } = useSWR<HoldersResponse>(

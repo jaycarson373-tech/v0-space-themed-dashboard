@@ -33,55 +33,12 @@ async function rpc<T>(url: string, method: string, params: unknown[]): Promise<T
   return json.result as T
 }
 
-function buildMock(): HoldersResponse {
-  const total = 690_000_000_000
-  const holders: Holder[] = []
-  let remaining = 0.62 // top 100 hold ~62% in this simulation
-  const weights: number[] = []
-  for (let i = 0; i < 100; i++) {
-    // descending power-law-ish distribution
-    weights.push(1 / Math.pow(i + 1.5, 1.15))
-  }
-  const weightSum = weights.reduce((a, b) => a + b, 0)
-  for (let i = 0; i < 100; i++) {
-    const percent = (weights[i] / weightSum) * remaining * 100
-    holders.push({
-      rank: i + 1,
-      owner: mockAddress(i),
-      amount: (percent / 100) * total,
-      percent,
-    })
-  }
-  return {
-    mint: TOKEN_MINT ?? "SPCX6900MintAddressNotConfigured1111111111111",
-    symbol: "SPCX6900",
-    name: "SpaceX 6900",
-    decimals: 6,
-    totalSupply: total,
-    holderCount: 8421,
-    topHolders: holders,
-    fetchedAt: Date.now(),
-    isLive: false,
-    note: TOKEN_MINT
-      ? "Showing simulated data — live fetch unavailable."
-      : "Showing simulated holder data.",
-  }
-}
-
-const MOCK_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789"
-function mockAddress(seed: number): string {
-  let s = ""
-  let x = seed * 2654435761
-  for (let i = 0; i < 44; i++) {
-    x = (x * 1103515245 + 12345) & 0x7fffffff
-    s += MOCK_CHARS[x % MOCK_CHARS.length]
-  }
-  return s
-}
-
 export async function GET() {
   if (!HELIUS_API_KEY || !TOKEN_MINT) {
-    return NextResponse.json(buildMock())
+    return NextResponse.json(
+      { error: "Holder data is not configured yet." },
+      { status: 503 },
+    )
   }
 
   const url = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`
@@ -139,9 +96,10 @@ export async function GET() {
     }
     return NextResponse.json(payload)
   } catch (err) {
-    const mock = buildMock()
-    mock.note = `Live fetch failed (${err instanceof Error ? err.message : "unknown"}). Showing simulated data.`
-    return NextResponse.json(mock)
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Failed to load holder data." },
+      { status: 502 },
+    )
   }
 }
 
