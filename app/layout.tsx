@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Libre_Franklin } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -8,15 +8,11 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 })
-const franklin = Libre_Franklin({
-  variable: '--font-franklin',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
-  title: 'SPCX6900 — Top 100 Holders Mission Control',
+  title: 'SPCX6900 | Vault Dashboard',
   description:
-    'Live SPCX6900 holder leaderboard. Top 100 holders on Solana, refueled every 15 minutes. To the moon and beyond.',
+    'SPCX is the stock. SPCX6900 is the meme. 100% of creator fees buy SPCX, distributed to holders every 15 minutes.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -43,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${franklin.variable}`}>
+    <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable}`}>
       <body className="bg-background font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
