@@ -48,7 +48,7 @@ export function CountdownCta() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <SectionHeading
           eyebrow="Distribution Cycle"
-          title="Every 15 minutes, like clockwork"
+          title="Every 5 minutes, like clockwork"
           desc="The vault runs on a fixed schedule. Here's the countdown to the next distribution cycle — full telemetry lives in the dashboard."
         />
 

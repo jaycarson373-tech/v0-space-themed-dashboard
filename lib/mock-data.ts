@@ -4,7 +4,7 @@ import type { Holder } from "./types"
 // CONFIG + LIVE-DATA PLACEHOLDERS
 // No fabricated metrics. Every value below is either:
 //   (a) static config / copy (interval, policy, process steps), or
-//   (b) a null/empty placeholder the 15-minute epoch runner fills in.
+//   (b) a null/empty placeholder the 5-minute epoch runner fills in.
 // Wire real API/DB reads into the `*_LIVE` getters later.
 // ─────────────────────────────────────────────────────────────
 
@@ -18,9 +18,9 @@ export const TOKEN = {
 }
 
 // Distribution schedule (real mechanism, not fabricated data)
-export const EPOCH_INTERVAL_MS = 15 * 60 * 1000
+export const EPOCH_INTERVAL_MS = 5 * 60 * 1000
 
-// Returns the next wall-clock 15-minute boundary.
+// Returns the next wall-clock 5-minute boundary.
 export function nextEpochBoundary(now = Date.now()): number {
   return Math.ceil(now / EPOCH_INTERVAL_MS) * EPOCH_INTERVAL_MS
 }
@@ -97,7 +97,7 @@ export const POLICY = [
   {
     id: "03",
     title: "Distributed to holders",
-    body: "The bought SPCX is airdropped pro-rata to every eligible holder — on-chain, automatic, and verifiable — every 15 minutes.",
+    body: "The bought SPCX is airdropped pro-rata to every eligible holder — on-chain, automatic, and verifiable — every 5 minutes.",
   },
 ]
 

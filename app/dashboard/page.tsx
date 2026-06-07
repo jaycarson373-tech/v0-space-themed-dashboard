@@ -57,7 +57,7 @@ export default function DashboardPage() {
             <p className="mt-2 font-mono text-xs leading-relaxed text-muted-foreground">
               <span className="text-[var(--color-negative)]">{"// "}</span>
               {HAS_LIVE_DATA
-                ? "Live vault telemetry, refreshed every 15-minute epoch."
+                ? "Live vault telemetry, refreshed every 5-minute epoch."
                 : "Vault not yet live. Metrics populate automatically once distribution begins."}
             </p>
           </div>

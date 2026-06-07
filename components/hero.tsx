@@ -16,7 +16,7 @@ export function Hero() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-negative)]/40 bg-[var(--color-negative)]/10 px-3 py-1">
             <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--color-negative)]" />
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground">
-              Fees → SPCX → Holders / Every 15m
+              Fees → SPCX → Holders / Every 5m
             </span>
           </div>
 
@@ -27,7 +27,7 @@ export function Hero() {
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
             100% of creator fees buy SPCX on Solana, then get{" "}
             <span className="font-semibold text-foreground">automatically distributed to holders</span>{" "}
-            every 15 minutes.
+            every 5 minutes.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -50,7 +50,7 @@ export function Hero() {
           {/* quick telemetry */}
           <dl className="mt-10 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-xl border border-border/70 bg-border/70">
             {[
-              { k: "Distribution", v: "Every 15m" },
+              { k: "Distribution", v: "Every 5m" },
               { k: "Fees → SPCX", v: "100%" },
               { k: "Network", v: "Solana" },
             ].map((s) => (
