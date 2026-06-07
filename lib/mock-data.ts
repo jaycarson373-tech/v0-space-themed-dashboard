@@ -14,7 +14,14 @@ export const TOKEN = {
   symbol: "SPCX6900",
   name: "SPCX6900",
   network: "Solana",
-  contract: null as string | null, // set to mint address at launch
+  contract: "BL3jLEqQJqwyrza98QQTeyhXeQCnVkJ2uFAkvJ7upump" as string | null,
+}
+
+// Official external links
+export const LINKS = {
+  twitter: "https://x.com/SPCX6900_fi",
+  telegram: "https://t.me/spcx6900",
+  buy: "https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=BL3jLEqQJqwyrza98QQTeyhXeQCnVkJ2uFAkvJ7upump",
 }
 
 // Distribution schedule (real mechanism, not fabricated data)

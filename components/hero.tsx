@@ -2,6 +2,7 @@ import Link from "next/link"
 import { LaunchBackground } from "@/components/launch-background"
 import { SceneBackground } from "@/components/scene-background"
 import { LogoCard } from "@/components/logo-card"
+import { LINKS } from "@/lib/mock-data"
 import { ArrowRight, Rocket } from "lucide-react"
 
 export function Hero() {
@@ -32,7 +33,9 @@ export function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#buy"
+              href={LINKS.buy}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_0_40px_-8px_var(--color-accent)] transition-transform hover:scale-[1.03]"
             >
               <Rocket className="h-4 w-4" />
