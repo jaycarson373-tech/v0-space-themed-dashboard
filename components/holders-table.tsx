@@ -1,11 +1,11 @@
 import type { Holder } from "@/lib/types"
 import { formatNumber, formatPercent, shortenAddress } from "@/lib/format"
 
-function classColor(c?: string) {
+function tierColor(c?: string) {
   switch (c) {
-    case "COMMANDER":
-      return "text-[var(--color-negative)]"
-    case "FIRST":
+    case "FOUNDER":
+      return "text-accent"
+    case "ANCHOR":
       return "text-foreground"
     default:
       return "text-muted-foreground"
@@ -23,22 +23,22 @@ export function HoldersTable({
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-border">
-            <th className="px-4 py-2.5 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <tr className="border-b border-border/70">
+            <th className="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Rank
             </th>
-            <th className="px-4 py-2.5 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            <th className="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Wallet
             </th>
-            <th className="px-4 py-2.5 text-right font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Holdings
             </th>
-            <th className="px-4 py-2.5 text-right font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Share
             </th>
             {showClass && (
-              <th className="px-4 py-2.5 text-right font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                Class
+              <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                Tier
               </th>
             )}
           </tr>
@@ -47,23 +47,23 @@ export function HoldersTable({
           {holders.map((h) => (
             <tr
               key={h.rank}
-              className="border-b border-border/60 transition-colors hover:bg-secondary/40"
+              className="border-b border-border/40 transition-colors hover:bg-secondary/30"
             >
-              <td className="px-4 py-2.5 font-mono text-xs tabular-nums text-muted-foreground">
+              <td className="px-5 py-3 font-mono text-xs tabular-nums text-muted-foreground">
                 {String(h.rank).padStart(2, "0")}
               </td>
-              <td className="px-4 py-2.5 font-mono text-xs text-foreground">
+              <td className="px-5 py-3 font-mono text-xs text-foreground">
                 {shortenAddress(h.owner, 5)}
               </td>
-              <td className="px-4 py-2.5 text-right font-mono text-xs tabular-nums text-foreground">
+              <td className="px-5 py-3 text-right font-mono text-xs tabular-nums text-foreground">
                 {formatNumber(h.amount)}
               </td>
-              <td className="px-4 py-2.5 text-right font-mono text-xs tabular-nums text-foreground">
+              <td className="px-5 py-3 text-right font-mono text-xs tabular-nums text-foreground">
                 {formatPercent(h.percent)}
               </td>
               {showClass && (
                 <td
-                  className={`px-4 py-2.5 text-right font-mono text-[10px] font-bold tracking-[0.1em] ${classColor(h.flightClass)}`}
+                  className={`px-5 py-3 text-right font-mono text-[10px] font-semibold tracking-[0.12em] ${tierColor(h.flightClass)}`}
                 >
                   {h.flightClass}
                 </td>

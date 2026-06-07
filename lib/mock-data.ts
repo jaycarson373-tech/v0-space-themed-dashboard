@@ -10,32 +10,46 @@ export const TOKEN = {
   symbol: "SPCX6900",
   name: "SPCX6900",
   network: "Solana",
-  contract: "SPCXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx6900",
+  contract: "SPCX6900vAuLtxxxxxxxxxxxxxxxxxxxxxxxxxxx6900",
   totalSupply: 690_000_000_000,
-  burnRate: "1% / tx",
-  lpStatus: "Locked",
 }
 
 export const MARKET = {
   marketCap: 6_942_000,
   price: 0.00001006,
   change24h: 69.42,
-  totalHolders: 4206,
-  topHolderCount: 100,
+  totalHolders: 512_408,
 }
 
-// Market ticker strip — SPCX6900 glows green, everything else red.
+// Vault headline stats (homepage + dashboard cards)
+export const VAULT = {
+  totalAirdropped: 482_339.18, // SPCX distributed all-time
+  eligibleHolders: 498_120,
+  pendingPool: 88.42, // SPCX waiting for next round
+  totalBought: 612_904.55, // SPCX bought from creator fees all-time
+}
+
+// Distribution / epoch summary
+export const DISTRIBUTION = {
+  roundsToday: 71,
+  recipientsThisRound: 3120,
+  paidThisRound: 1_204.55,
+  paidAllTime: 482_339.18,
+  feesClaimedSol: 6.91,
+}
+
+// Market ticker strip — SPCX6900 glows green, legacy markets bleed red.
 export const TICKER_ITEMS = [
-  { symbol: "SPX500", change: -99, up: false },
-  { symbol: "SPCX6900", change: 69000, up: true },
-  { symbol: "MSFT", change: -99, up: false },
-  { symbol: "NVDA", change: -99, up: false },
-  { symbol: "AAPL", change: -99, up: false },
-  { symbol: "BRK.B", change: -99, up: false },
-  { symbol: "JPM", change: -99, up: false },
-  { symbol: "META", change: -99, up: false },
-  { symbol: "AMZN", change: -99, up: false },
-  { symbol: "GOOG", change: -99, up: false },
+  { symbol: "SPX500", change: -2.1, up: false },
+  { symbol: "SPCX6900", change: 69.42, up: true },
+  { symbol: "BTC", change: -1.4, up: false },
+  { symbol: "NVDA", change: -3.2, up: false },
+  { symbol: "AAPL", change: -0.9, up: false },
+  { symbol: "TSLA", change: -4.6, up: false },
+  { symbol: "SOL", change: 5.8, up: true },
+  { symbol: "META", change: -1.1, up: false },
+  { symbol: "AMZN", change: -0.7, up: false },
+  { symbol: "GOOG", change: -1.9, up: false },
 ]
 
 function genWallet(seed: number): string {
@@ -49,12 +63,12 @@ function genWallet(seed: number): string {
   return out
 }
 
-function flightClass(rank: number): string {
-  if (rank === 1) return "COMMANDER"
-  if (rank <= 3) return "FIRST"
-  if (rank <= 10) return "BUSINESS"
-  if (rank <= 50) return "PREMIUM"
-  return "ECONOMY"
+function tier(rank: number): string {
+  if (rank === 1) return "FOUNDER"
+  if (rank <= 3) return "ANCHOR"
+  if (rank <= 10) return "MAJOR"
+  if (rank <= 50) return "SENIOR"
+  return "HOLDER"
 }
 
 // Top 100 holders, deterministic mock with a realistic decay curve.
@@ -68,7 +82,7 @@ export const TOP_HOLDERS: Holder[] = Array.from({ length: 100 }, (_, i) => {
     owner: genWallet(rank),
     amount,
     percent,
-    flightClass: flightClass(rank),
+    flightClass: tier(rank),
   }
 })
 
@@ -103,6 +117,33 @@ export const PAYOUTS = {
   spcxPaidAllTime: 482_339.18,
   pendingPool: 88.42,
 }
+
+// Distribution policy — creator fees → buy → distribute
+export const POLICY = [
+  {
+    id: "01",
+    title: "Creator fees accrue",
+    body: "Every SPCX6900 transaction routes creator fees into the vault wallet on Solana. Nothing is skimmed for the team.",
+  },
+  {
+    id: "02",
+    title: "100% buys SPCX",
+    body: "When the epoch fires, the full fee balance is claimed and market-bought into SPCX automatically. No discretion, no delay.",
+  },
+  {
+    id: "03",
+    title: "Distributed to holders",
+    body: "The bought SPCX is airdropped pro-rata to every eligible holder — 500K+ wallets — every 15 minutes, on-chain and verifiable.",
+  },
+]
+
+// Ledger process states (homepage ledger preview)
+export const LEDGER_STAGES = [
+  { id: "pending", label: "Pending", desc: "Fees accruing in vault", state: "done" },
+  { id: "snapshot", label: "Snapshot", desc: "Holder balances captured", state: "done" },
+  { id: "buy", label: "Buy", desc: "SPCX market buy executed", state: "active" },
+  { id: "distribution", label: "Distribution", desc: "Pro-rata payouts sent", state: "queued" },
+] as const
 
 export const RECENT_SIGNATURES = [
   { sig: "5KJp9aQx7Tn2bV3cWm8dLf4gHr6sYz1uXe0oNpQ2RtAuBvCwDxEyFzG", status: "confirmed", ts: Date.now() - 40_000 },

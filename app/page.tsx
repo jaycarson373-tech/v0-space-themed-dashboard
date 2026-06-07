@@ -1,9 +1,12 @@
 import { SiteHeader } from "@/components/site-header"
 import { MarketTicker } from "@/components/market-ticker"
 import { Hero } from "@/components/hero"
-import { IpoCentury } from "@/components/ipo-century"
-import { ManifestPreview } from "@/components/manifest-preview"
-import { MissionBrief, Tokenomics } from "@/components/mission-brief"
+import { TabStrip } from "@/components/tab-strip"
+import { VaultPreview } from "@/components/vault-preview"
+import { DistributionPreview } from "@/components/distribution-preview"
+import { ShareholdersPreview } from "@/components/shareholders-preview"
+import { DistributionPolicy } from "@/components/distribution-policy"
+import { LedgerPreview } from "@/components/ledger-preview"
 import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
@@ -12,10 +15,12 @@ export default function Page() {
       <SiteHeader />
       <MarketTicker />
       <Hero />
-      <IpoCentury />
-      <ManifestPreview />
-      <MissionBrief />
-      <Tokenomics />
+      <TabStrip />
+      <VaultPreview />
+      <DistributionPreview />
+      <ShareholdersPreview />
+      <DistributionPolicy />
+      <LedgerPreview />
       <SiteFooter />
     </main>
   )

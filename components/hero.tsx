@@ -1,86 +1,70 @@
-import { OrbitalGraphic } from "@/components/orbital-graphic"
-import { Panel } from "@/components/panel"
-import { Rocket, LineChart, Users } from "lucide-react"
+import Link from "next/link"
+import { LaunchBackground } from "@/components/launch-background"
+import { LogoCard } from "@/components/logo-card"
+import { ArrowRight, Rocket } from "lucide-react"
 
 export function Hero() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
-      <div className="grid gap-4 lg:grid-cols-[1.05fr_1.4fr_1fr]">
-        {/* LEFT — terminal graphic */}
-        <Panel label="MISSION FEED" className="overflow-hidden">
-          <OrbitalGraphic />
-        </Panel>
+    <section className="relative overflow-hidden">
+      <LaunchBackground />
 
-        {/* CENTER — the big take */}
-        <div className="flex flex-col justify-center px-1 py-2 lg:px-4">
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--color-negative)]">
-            The Big Take
-          </span>
-          <h1 className="mt-4 text-balance font-mono text-3xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-4xl xl:text-5xl">
-            The most hyped IPO of all time is coming — and holders get the airdrop
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-28">
+        {/* Left: copy */}
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-negative)]/40 bg-[var(--color-negative)]/10 px-3 py-1">
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--color-negative)]" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground">
+              Vault Active / Epoch Running
+            </span>
+          </div>
+
+          <h1 className="mt-6 text-balance text-6xl font-bold leading-[0.92] tracking-tight text-foreground text-glow sm:text-7xl lg:text-8xl">
+            SPCX<span className="text-accent">6900</span>
           </h1>
-          <p className="mt-5 max-w-xl text-pretty leading-relaxed text-muted-foreground">
-            SPCX6900 is the unofficial Solana meme ticket for everyone who wants
-            a seat before the rocket leaves the pad.
-          </p>
-          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted-foreground">
-            No broker. No waitlist. No accreditation. Just the chart, the
-            manifest, and the launch.
+
+          <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+            100% of creator fees buy SPCX on Solana, automatically distributed to{" "}
+            <span className="font-semibold text-foreground">500K+ holders</span> every 15 minutes.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href="#buy"
-              className="inline-flex items-center gap-2 border border-[var(--color-negative)] bg-[var(--color-negative)]/15 px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-[var(--color-negative)]/25"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_0_40px_-8px_var(--color-accent)] transition-transform hover:scale-[1.03]"
             >
               <Rocket className="h-4 w-4" />
-              BUY $SPCX6900
+              Buy $SPCX6900
             </a>
-            <a
-              href="#chart"
-              className="inline-flex items-center gap-2 border border-border bg-card px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-secondary"
-            >
-              <LineChart className="h-4 w-4" />
-              VIEW CHART
-            </a>
-            <a
+            <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 border border-border bg-card px-5 py-2.5 font-mono text-xs font-bold tracking-[0.12em] text-foreground transition-colors hover:bg-secondary"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-card/70"
             >
-              <Users className="h-4 w-4" />
-              SEE FLIGHT MANIFEST
-            </a>
+              Enter Vault
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
+
+          {/* quick telemetry */}
+          <dl className="mt-10 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-xl border border-border/70 bg-border/70">
+            {[
+              { k: "Distribution", v: "Every 15m" },
+              { k: "Fees → SPCX", v: "100%" },
+              { k: "Network", v: "Solana" },
+            ].map((s) => (
+              <div key={s.k} className="bg-card/60 px-4 py-3 backdrop-blur">
+                <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  {s.k}
+                </dt>
+                <dd className="mt-1 font-mono text-sm font-bold text-foreground">{s.v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        {/* RIGHT — WTF card */}
-        <Panel label="WTF IS SPCX6900?" className="flex flex-col">
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <p className="text-pretty leading-relaxed text-foreground">
-              This tiny coin is launching to orbit.
-            </p>
-            <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-              Go search SPCX6900 on X. Go ask about the SpaceX IPO. Go check the
-              top holders. The ticker is everywhere.
-            </p>
-            <div className="mt-auto grid grid-cols-2 gap-px border border-border bg-border">
-              <div className="bg-card px-3 py-3">
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Network
-                </div>
-                <div className="mt-1 font-mono text-sm font-bold text-foreground">Solana</div>
-              </div>
-              <div className="bg-card px-3 py-3">
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Status
-                </div>
-                <div className="mt-1 font-mono text-sm font-bold text-[var(--color-positive)]">
-                  LIVE
-                </div>
-              </div>
-            </div>
-          </div>
-        </Panel>
+        {/* Right: logo card */}
+        <div className="mx-auto w-full max-w-md lg:max-w-none">
+          <LogoCard />
+        </div>
       </div>
     </section>
   )
