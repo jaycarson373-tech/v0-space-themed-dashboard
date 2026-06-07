@@ -4,24 +4,27 @@ import { MarketTicker } from "@/components/market-ticker"
 import { EpochRunner } from "@/components/epoch-runner"
 import { Panel, Stat } from "@/components/panel"
 import { HoldersTable } from "@/components/holders-table"
+import { EmptyState } from "@/components/empty-state"
 import { SiteFooter } from "@/components/site-footer"
 import {
   MARKET,
+  VAULT,
   TOKEN,
   TOP_HOLDERS,
   TOP_100_CONTROL,
-  PAYOUTS,
+  DISTRIBUTION,
   RECENT_SIGNATURES,
   ACTIVITY_LOG,
   ERROR_LOG,
+  HAS_LIVE_DATA,
 } from "@/lib/mock-data"
-import { formatNumber, shortenAddress, timeAgo } from "@/lib/format"
-import { ArrowLeft, AlertTriangle, Activity } from "lucide-react"
+import { metric, shortenAddress, timeAgo } from "@/lib/format"
+import { ArrowLeft, AlertTriangle, Activity, Users, Receipt } from "lucide-react"
 
 export const metadata = {
-  title: "SPCX6900 | Mission Control Dashboard",
+  title: "SPCX6900 | Vault Dashboard",
   description:
-    "Live SPCX6900 mission-control dashboard. Epoch runner, payouts, and the top 100 flight manifest.",
+    "Live SPCX6900 vault dashboard — epoch runner, distribution metrics, holders, and on-chain ledger.",
 }
 
 export default function DashboardPage() {
@@ -31,6 +34,7 @@ export default function DashboardPage() {
       <MarketTicker />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        {/* Header row */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <Link
@@ -40,136 +44,172 @@ export default function DashboardPage() {
               <ArrowLeft className="h-3.5 w-3.5" />
               Home
             </Link>
-            <h1 className="mt-3 font-mono text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-              Mission Control
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Vault Dashboard
             </h1>
             <p className="mt-2 font-mono text-xs leading-relaxed text-muted-foreground">
               <span className="text-[var(--color-negative)]">{"// "}</span>
-              Mock telemetry. The 15-minute epoch runner will write live data here.
+              {HAS_LIVE_DATA
+                ? "Live vault telemetry, refreshed every 15-minute epoch."
+                : "Vault not yet live. Metrics populate automatically once distribution begins."}
             </p>
           </div>
           <div className="border border-border bg-card px-4 py-2 font-mono text-[11px] tracking-wide text-muted-foreground">
             CONTRACT{" "}
-            <span className="text-foreground">{shortenAddress(TOKEN.contract, 6)}</span>
+            <span className="text-foreground">
+              {TOKEN.contract ? shortenAddress(TOKEN.contract, 6) : "TBA"}
+            </span>
           </div>
         </div>
 
-        {/* Epoch runner */}
+        {/* Vault headline stats */}
         <div className="mt-8">
-          <EpochRunner />
-        </div>
-
-        {/* Market stats */}
-        <div className="mt-4">
-          <Panel label="Market // SPCX6900">
-            <div className="grid grid-cols-2 gap-px bg-border md:grid-cols-5">
+          <Panel label="Vault // Overview">
+            <div className="grid grid-cols-2 gap-px bg-border md:grid-cols-4">
               <div className="bg-card">
-                <Stat label="Market Cap" value={`$${formatNumber(MARKET.marketCap)}`} />
+                <Stat label="SPCX Bought (All-Time)" value={metric(VAULT.totalBought)} />
               </div>
               <div className="bg-card">
-                <Stat label="Price" value={`$${MARKET.price.toFixed(8)}`} />
+                <Stat label="SPCX Airdropped" value={metric(VAULT.totalAirdropped)} />
               </div>
               <div className="bg-card">
-                <Stat
-                  label="24h Change"
-                  value={`+${MARKET.change24h}%`}
-                  accent="positive"
-                />
+                <Stat label="Eligible Holders" value={metric(VAULT.eligibleHolders)} />
               </div>
               <div className="bg-card">
-                <Stat label="Total Holders" value={formatNumber(MARKET.totalHolders)} />
-              </div>
-              <div className="bg-card">
-                <Stat label="Top Holders" value={MARKET.topHolderCount} />
+                <Stat label="Pending Pool" value={metric(VAULT.pendingPool, { suffix: " SPCX" })} />
               </div>
             </div>
           </Panel>
         </div>
 
-        {/* Payouts */}
+        {/* Epoch runner */}
         <div className="mt-4">
-          <Panel label="Payout Ledger // This Round">
-            <div className="grid grid-cols-2 gap-px bg-border lg:grid-cols-4">
+          <EpochRunner />
+        </div>
+
+        {/* Market + distribution */}
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <Panel label="Market // SPCX6900">
+            <div className="grid grid-cols-2 gap-px bg-border">
               <div className="bg-card">
-                <Stat label="Recipients This Round" value={formatNumber(PAYOUTS.recipientsThisRound)} />
+                <Stat label="Market Cap" value={metric(MARKET.marketCap, { prefix: "$" })} />
               </div>
               <div className="bg-card">
                 <Stat
-                  label="SPCX Paid This Round"
-                  value={formatNumber(PAYOUTS.spcxPaidThisRound)}
-                  accent="positive"
+                  label="Price"
+                  value={
+                    MARKET.price === null ? "—" : `$${MARKET.price.toFixed(8)}`
+                  }
                 />
               </div>
               <div className="bg-card">
-                <Stat label="SPCX Paid All-Time" value={formatNumber(PAYOUTS.spcxPaidAllTime)} />
+                <Stat
+                  label="24h Change"
+                  value={MARKET.change24h === null ? "—" : `${MARKET.change24h}%`}
+                />
               </div>
               <div className="bg-card">
-                <Stat label="Pending Pool" value={`${PAYOUTS.pendingPool} SOL`} />
+                <Stat label="Total Holders" value={metric(MARKET.totalHolders)} />
+              </div>
+            </div>
+          </Panel>
+
+          <Panel label="Distribution // Today">
+            <div className="grid grid-cols-2 gap-px bg-border">
+              <div className="bg-card">
+                <Stat label="Rounds Today" value={metric(DISTRIBUTION.roundsToday)} />
+              </div>
+              <div className="bg-card">
+                <Stat label="Recipients (Round)" value={metric(DISTRIBUTION.recipientsThisRound)} />
+              </div>
+              <div className="bg-card">
+                <Stat label="Paid (All-Time)" value={metric(DISTRIBUTION.paidAllTime, { suffix: " SPCX" })} />
+              </div>
+              <div className="bg-card">
+                <Stat label="Fees Claimed" value={metric(DISTRIBUTION.feesClaimedSol, { suffix: " SOL" })} />
               </div>
             </div>
           </Panel>
         </div>
 
         {/* Holders + signatures */}
-        <div className="mt-4 grid gap-4 lg:grid-cols-[1.7fr_1fr]">
+        <div className="mt-4 grid gap-4 lg:grid-cols-[1.7fr_1fr]" id="holders">
           <Panel
-            label="Flight Manifest // Top 100"
+            label="Top Holders"
             right={
               <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                Control {TOP_100_CONTROL}%
+                {TOP_100_CONTROL === null ? "Control —" : `Control ${TOP_100_CONTROL}%`}
               </span>
             }
           >
-            <div className="max-h-[520px] overflow-y-auto">
-              <HoldersTable holders={TOP_HOLDERS} />
-            </div>
+            {TOP_HOLDERS.length === 0 ? (
+              <EmptyState
+                icon={<Users className="h-6 w-6" />}
+                title="No snapshot yet"
+                hint="The holder leaderboard fills in after the first on-chain snapshot."
+              />
+            ) : (
+              <div className="max-h-[520px] overflow-y-auto">
+                <HoldersTable holders={TOP_HOLDERS} />
+              </div>
+            )}
           </Panel>
 
           <Panel label="Recent Signatures">
-            <ul className="divide-y divide-border/60">
-              {RECENT_SIGNATURES.map((s) => (
-                <li key={s.sig} className="px-4 py-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-xs text-foreground">
-                      {shortenAddress(s.sig, 6)}
-                    </span>
-                    <span
-                      className={`font-mono text-[10px] uppercase tracking-[0.16em] ${
-                        s.status === "confirmed"
-                          ? "text-[var(--color-positive)]"
-                          : "text-[var(--color-negative)]"
-                      }`}
-                    >
-                      {s.status}
-                    </span>
-                  </div>
-                  <div className="mt-1 font-mono text-[10px] text-muted-foreground">
-                    {timeAgo(s.ts)}
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {RECENT_SIGNATURES.length === 0 ? (
+              <EmptyState
+                icon={<Receipt className="h-6 w-6" />}
+                title="No transactions yet"
+                hint="Confirmed payout signatures appear here each epoch."
+              />
+            ) : (
+              <ul className="divide-y divide-border/60">
+                {RECENT_SIGNATURES.map((s) => (
+                  <li key={s.sig} className="px-4 py-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-xs text-foreground">
+                        {shortenAddress(s.sig, 6)}
+                      </span>
+                      <span
+                        className={`font-mono text-[10px] uppercase tracking-[0.16em] ${
+                          s.status === "confirmed"
+                            ? "text-[var(--color-positive)]"
+                            : "text-[var(--color-negative)]"
+                        }`}
+                      >
+                        {s.status}
+                      </span>
+                    </div>
+                    <div className="mt-1 font-mono text-[10px] text-muted-foreground">
+                      {timeAgo(s.ts)}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Panel>
         </div>
 
         {/* Activity + error logs */}
-        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <div className="mt-4 grid gap-4 lg:grid-cols-2" id="ledger">
           <Panel
             label="Activity Log"
             right={<Activity className="h-3.5 w-3.5 text-muted-foreground" />}
           >
-            <ul className="divide-y divide-border/60">
-              {ACTIVITY_LOG.map((a, i) => (
-                <li key={i} className="flex items-start gap-3 px-4 py-2.5">
-                  <span className="mt-0.5 font-mono text-[10px] tabular-nums text-muted-foreground">
-                    {timeAgo(a.ts)}
-                  </span>
-                  <span className="font-mono text-xs leading-relaxed text-foreground">
-                    {a.msg}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {ACTIVITY_LOG.length === 0 ? (
+              <EmptyState title="No activity yet" hint="Epoch events stream in here once the runner starts." />
+            ) : (
+              <ul className="divide-y divide-border/60">
+                {ACTIVITY_LOG.map((a, i) => (
+                  <li key={i} className="flex items-start gap-3 px-4 py-2.5">
+                    <span className="mt-0.5 font-mono text-[10px] tabular-nums text-muted-foreground">
+                      {timeAgo(a.ts)}
+                    </span>
+                    <span className="font-mono text-xs leading-relaxed text-foreground">{a.msg}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Panel>
 
           <Panel
@@ -177,9 +217,7 @@ export default function DashboardPage() {
             right={<AlertTriangle className="h-3.5 w-3.5 text-[var(--color-negative)]" />}
           >
             {ERROR_LOG.length === 0 ? (
-              <div className="px-4 py-6 font-mono text-xs text-muted-foreground">
-                No errors this epoch.
-              </div>
+              <EmptyState title="No errors" hint="Runner warnings and failures would be reported here." />
             ) : (
               <ul className="divide-y divide-border/60">
                 {ERROR_LOG.map((e, i) => (
@@ -193,9 +231,7 @@ export default function DashboardPage() {
                     >
                       {e.level}
                     </span>
-                    <span className="font-mono text-xs leading-relaxed text-muted-foreground">
-                      {e.msg}
-                    </span>
+                    <span className="font-mono text-xs leading-relaxed text-muted-foreground">{e.msg}</span>
                   </li>
                 ))}
               </ul>

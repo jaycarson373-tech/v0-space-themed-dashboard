@@ -14,7 +14,7 @@ export function Hero() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-negative)]/40 bg-[var(--color-negative)]/10 px-3 py-1">
             <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--color-negative)]" />
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground">
-              Vault Active / Epoch Running
+              Fees → SPCX → Holders / Every 15m
             </span>
           </div>
 
@@ -23,8 +23,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            100% of creator fees buy SPCX on Solana, automatically distributed to{" "}
-            <span className="font-semibold text-foreground">500K+ holders</span> every 15 minutes.
+            100% of creator fees buy SPCX on Solana, then get{" "}
+            <span className="font-semibold text-foreground">automatically distributed to holders</span>{" "}
+            every 15 minutes.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -39,7 +40,7 @@ export function Hero() {
               href="/dashboard"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-card/70"
             >
-              Enter Vault
+              Enter the Dashboard
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

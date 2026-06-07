@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react"
 
 export function DistributionPolicy() {
   return (
-    <section className="relative scroll-mt-28">
+    <section id="how" className="relative scroll-mt-28">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <SectionHeading
           eyebrow="Distribution Policy"

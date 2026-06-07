@@ -55,15 +55,14 @@ export function LogoCard() {
       <div className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
         SPCX // VAULT
       </div>
-      <div className="absolute right-4 top-4 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-positive)]">
-        <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--color-positive)]" />
-        Active
+      <div className="absolute right-4 top-4 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+        SOLANA
       </div>
       <div className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-        ALT 6,900 KM
+        $SPCX6900
       </div>
       <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-negative)]">
-        VEL +69,000%
+        FEES → SPCX
       </div>
     </div>
   )

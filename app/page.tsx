@@ -1,12 +1,8 @@
 import { SiteHeader } from "@/components/site-header"
 import { MarketTicker } from "@/components/market-ticker"
 import { Hero } from "@/components/hero"
-import { TabStrip } from "@/components/tab-strip"
-import { VaultPreview } from "@/components/vault-preview"
-import { DistributionPreview } from "@/components/distribution-preview"
-import { ShareholdersPreview } from "@/components/shareholders-preview"
 import { DistributionPolicy } from "@/components/distribution-policy"
-import { LedgerPreview } from "@/components/ledger-preview"
+import { CountdownCta } from "@/components/countdown-cta"
 import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
@@ -15,12 +11,8 @@ export default function Page() {
       <SiteHeader />
       <MarketTicker />
       <Hero />
-      <TabStrip />
-      <VaultPreview />
-      <DistributionPreview />
-      <ShareholdersPreview />
       <DistributionPolicy />
-      <LedgerPreview />
+      <CountdownCta />
       <SiteFooter />
     </main>
   )

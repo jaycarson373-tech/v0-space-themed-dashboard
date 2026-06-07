@@ -1,20 +1,19 @@
-import { TICKER_ITEMS } from "@/lib/mock-data"
+const PHRASES = [
+  "100% OF CREATOR FEES BUY SPCX",
+  "DISTRIBUTED TO HOLDERS EVERY 15 MINUTES",
+  "ON-CHAIN · AUTOMATIC · VERIFIABLE",
+  "NO TEAM CUT · NO VESTING GAMES",
+  "BUILT ON SOLANA",
+]
 
 function TickerRow() {
   return (
     <div className="flex shrink-0 items-center">
-      {TICKER_ITEMS.map((item, i) => (
-        <div key={`${item.symbol}-${i}`} className="flex items-center gap-2 px-6 py-2.5">
-          <span className="font-mono text-[11px] font-medium tracking-[0.12em] text-muted-foreground">
-            {item.symbol}
-          </span>
-          <span
-            className={`font-mono text-[11px] font-semibold tabular-nums ${
-              item.up ? "text-[var(--color-positive)]" : "text-[var(--color-negative)]"
-            }`}
-          >
-            {item.up ? "▲" : "▼"} {item.up ? "+" : ""}
-            {item.change.toLocaleString()}%
+      {PHRASES.map((phrase, i) => (
+        <div key={`${phrase}-${i}`} className="flex items-center gap-3 px-6 py-2.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="font-mono text-[11px] font-medium tracking-[0.18em] text-muted-foreground">
+            {phrase}
           </span>
         </div>
       ))}

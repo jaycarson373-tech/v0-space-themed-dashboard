@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 import { BrandMark } from "@/components/brand-mark"
-import { MARKET, TOKEN } from "@/lib/mock-data"
-import { formatNumber, shortenAddress } from "@/lib/format"
+import { TOKEN } from "@/lib/mock-data"
+import { shortenAddress } from "@/lib/format"
 import { Copy, Rocket } from "lucide-react"
 import { useState } from "react"
 
@@ -24,31 +24,15 @@ function TelegramIcon({ className }: { className?: string }) {
 }
 
 const NAV = [
-  { label: "Vault", href: "/dashboard" },
-  { label: "Holders", href: "/dashboard#holders" },
   { label: "How It Works", href: "/#how" },
-  { label: "Ledger", href: "/dashboard#ledger" },
+  { label: "Dashboard", href: "/dashboard" },
 ]
-
-function HeaderStat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
-  return (
-    <div className="flex flex-col leading-tight">
-      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-        {label}
-      </span>
-      <span
-        className={`font-mono text-xs font-bold tabular-nums ${accent ? "text-[var(--color-positive)]" : "text-foreground"}`}
-      >
-        {value}
-      </span>
-    </div>
-  )
-}
 
 export function SiteHeader() {
   const [copied, setCopied] = useState(false)
 
   const copyContract = async () => {
+    if (!TOKEN.contract) return
     try {
       await navigator.clipboard.writeText(TOKEN.contract)
       setCopied(true)
@@ -66,18 +50,9 @@ export function SiteHeader() {
           <BrandMark size={34} />
         </Link>
 
-        {/* Center: stat strip */}
-        <div className="hidden items-center gap-6 rounded-full border border-border/70 bg-card/40 px-5 py-1.5 md:flex">
-          <HeaderStat label="MCAP" value={`$${formatNumber(MARKET.marketCap)}`} />
-          <span className="h-6 w-px bg-border" />
-          <HeaderStat label="24H" value={`+${MARKET.change24h}%`} accent />
-          <span className="h-6 w-px bg-border" />
-          <HeaderStat label="Holders" value={formatNumber(MARKET.totalHolders)} />
-        </div>
-
         {/* Right: nav + actions */}
         <div className="flex items-center gap-2">
-          <nav className="hidden items-center gap-1 xl:flex">
+          <nav className="hidden items-center gap-1 sm:flex">
             {NAV.map((item) => (
               <Link
                 key={item.label}
@@ -91,11 +66,12 @@ export function SiteHeader() {
 
           <button
             onClick={copyContract}
-            className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/40 px-3 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+            disabled={!TOKEN.contract}
+            className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/40 px-3 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60 sm:inline-flex"
             aria-label="Copy contract address"
           >
-            {copied ? "Copied" : shortenAddress(TOKEN.contract, 4)}
-            <Copy className="h-3 w-3" />
+            {TOKEN.contract ? (copied ? "Copied" : shortenAddress(TOKEN.contract, 4)) : "CA: TBA"}
+            {TOKEN.contract && <Copy className="h-3 w-3" />}
           </button>
 
           <div className="hidden items-center gap-1 sm:flex">
