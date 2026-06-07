@@ -49,7 +49,7 @@ export function EpochRunner() {
             Distribution Interval
           </div>
           <div className="mt-1 font-mono text-4xl font-extrabold tabular-nums text-foreground">
-            15:00
+            05:00
           </div>
 
           <div className="mt-5 border border-border bg-background px-4 py-3">

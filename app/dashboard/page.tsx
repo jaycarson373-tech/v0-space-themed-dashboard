@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { MarketTicker } from "@/components/market-ticker"
+import { SceneBackground } from "@/components/scene-background"
 import { EpochRunner } from "@/components/epoch-runner"
 import { Panel, Stat } from "@/components/panel"
 import { HoldersTable } from "@/components/holders-table"
@@ -30,8 +31,14 @@ export const metadata = {
 export default function DashboardPage() {
   return (
     <main className="relative min-h-screen bg-background">
-      <SiteHeader />
-      <MarketTicker />
+      {/* fixed cinematic backdrop */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 h-[80vh]">
+        <SceneBackground scene="spaceport" opacity={0.14} position="center 35%" fade="bottom" />
+      </div>
+
+      <div className="relative">
+        <SiteHeader />
+        <MarketTicker />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         {/* Header row */}
@@ -50,7 +57,7 @@ export default function DashboardPage() {
             <p className="mt-2 font-mono text-xs leading-relaxed text-muted-foreground">
               <span className="text-[var(--color-negative)]">{"// "}</span>
               {HAS_LIVE_DATA
-                ? "Live vault telemetry, refreshed every 15-minute epoch."
+                ? "Live vault telemetry, refreshed every 5-minute epoch."
                 : "Vault not yet live. Metrics populate automatically once distribution begins."}
             </p>
           </div>
@@ -240,7 +247,8 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <SiteFooter />
+        <SiteFooter />
+      </div>
     </main>
   )
 }
