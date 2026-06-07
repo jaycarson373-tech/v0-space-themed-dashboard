@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { BrandMark } from "@/components/brand-mark"
-import { TOKEN } from "@/lib/mock-data"
+import { TOKEN, LINKS } from "@/lib/mock-data"
 import { shortenAddress } from "@/lib/format"
 import { Copy, Rocket } from "lucide-react"
 import { useState } from "react"
@@ -76,14 +76,18 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-1 sm:flex">
             <a
-              href="#"
+              href={LINKS.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="SPCX6900 on X"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-card/40 text-muted-foreground transition-colors hover:text-foreground"
             >
               <XIcon className="h-3.5 w-3.5" />
             </a>
             <a
-              href="#"
+              href={LINKS.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="SPCX6900 on Telegram"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-card/40 text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -92,7 +96,9 @@ export function SiteHeader() {
           </div>
 
           <a
-            href="#buy"
+            href={LINKS.buy}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[13px] font-semibold text-accent-foreground shadow-[0_0_24px_-6px_var(--color-accent)] transition-transform hover:scale-[1.03]"
           >
             <Rocket className="h-3.5 w-3.5" />

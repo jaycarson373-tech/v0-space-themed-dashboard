@@ -1,14 +1,12 @@
 import { BrandMark } from "@/components/brand-mark"
+import { LINKS, TOKEN } from "@/lib/mock-data"
 
-const LINKS = [
-  "Brand Kit",
-  "Telegram",
-  "DexTools",
-  "Dexscreener",
-  "Jupiter SOL",
-  "Solscan",
-  "X / Twitter",
-  "MICA Compliance",
+const NAV_LINKS: { label: string; href: string }[] = [
+  { label: "X / Twitter", href: LINKS.twitter },
+  { label: "Telegram", href: LINKS.telegram },
+  { label: "Buy on Jupiter", href: LINKS.buy },
+  { label: "DexScreener", href: `https://dexscreener.com/solana/${TOKEN.contract}` },
+  { label: "Solscan", href: `https://solscan.io/token/${TOKEN.contract}` },
 ]
 
 const DISCLAIMER =
@@ -20,14 +18,16 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <BrandMark size={36} />
-          <nav className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-4">
-            {LINKS.map((l) => (
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-3">
+            {NAV_LINKS.map((l) => (
               <a
-                key={l}
-                href="#"
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-foreground"
               >
-                {l}
+                {l.label}
               </a>
             ))}
           </nav>
