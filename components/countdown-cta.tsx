@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { SectionHeading } from "@/components/section-heading"
 import { Panel } from "@/components/panel"
+import { SceneBackground } from "@/components/scene-background"
 import { EPOCH_STEPS, nextEpochBoundary } from "@/lib/mock-data"
 import { ArrowRight } from "lucide-react"
 
@@ -42,8 +43,9 @@ export function CountdownCta() {
   const { m, s } = clock(remaining)
 
   return (
-    <section className="relative scroll-mt-28">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <section className="relative overflow-hidden scroll-mt-28">
+      <SceneBackground scene="gate" opacity={0.2} position="center" fade="both" />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <SectionHeading
           eyebrow="Distribution Cycle"
           title="Every 15 minutes, like clockwork"

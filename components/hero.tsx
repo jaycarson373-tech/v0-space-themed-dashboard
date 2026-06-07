@@ -1,12 +1,14 @@
 import Link from "next/link"
 import { LaunchBackground } from "@/components/launch-background"
+import { SceneBackground } from "@/components/scene-background"
 import { LogoCard } from "@/components/logo-card"
 import { ArrowRight, Rocket } from "lucide-react"
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <LaunchBackground />
+      <SceneBackground scene="hangar" opacity={0.28} position="center 30%" />
+      <LaunchBackground withGrid={false} />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-28">
         {/* Left: copy */}
