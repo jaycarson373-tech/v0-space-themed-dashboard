@@ -1,18 +1,18 @@
 import { SiteHeader } from "@/components/site-header"
+import { MarketTicker } from "@/components/market-ticker"
 import { Hero } from "@/components/hero"
-import { HoldersDashboard } from "@/components/holders-dashboard"
-import { Mission, Tokenomics, IpoAirdrop } from "@/components/mission"
+import { DistributionPolicy } from "@/components/distribution-policy"
+import { CountdownCta } from "@/components/countdown-cta"
 import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
   return (
     <main className="relative min-h-screen bg-background">
       <SiteHeader />
+      <MarketTicker />
       <Hero />
-      <IpoAirdrop />
-      <HoldersDashboard />
-      <Mission />
-      <Tokenomics />
+      <DistributionPolicy />
+      <CountdownCta />
       <SiteFooter />
     </main>
   )

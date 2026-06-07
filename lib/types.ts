@@ -3,17 +3,13 @@ export type Holder = {
   owner: string
   amount: number
   percent: number
+  flightClass?: string
 }
 
-export type HoldersResponse = {
-  mint: string
-  symbol: string
-  name: string
-  decimals: number
-  totalSupply: number
-  holderCount: number
-  topHolders: Holder[]
-  fetchedAt: number
-  isLive: boolean
-  note?: string
+export type EpochState = {
+  number: number
+  currentStepIndex: number
+  intervalMs: number
+  lastUpdated: number
+  nextEpochAt: number
 }

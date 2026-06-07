@@ -1,3 +1,5 @@
+import { BrandMark } from "@/components/brand-mark"
+
 const LINKS = [
   "Brand Kit",
   "Telegram",
@@ -9,51 +11,41 @@ const LINKS = [
   "MICA Compliance",
 ]
 
+const DISCLAIMER =
+  "SPCX6900 Token is a meme token created for entertainment and parody purposes only. SPCX6900 has no association with any stocks, equities, securities, indices, companies, or business entities, including SpaceX. Any resemblance or association between SPCX6900 and the SpaceX IPO narrative is purely satirical and humorous. This website is unofficial and operates solely as a fan page. SPCX6900 is a meme token with no intrinsic value or expectation of financial return. Nothing on this website is financial, legal, or professional advice."
+
 export function SiteFooter() {
   return (
-    <footer className="border-t-2 border-foreground bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-        <h2 className="font-mono text-5xl font-extrabold tracking-tight text-foreground sm:text-7xl">
-          SPCX6900
-        </h2>
-
-        <ul className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-border py-3">
-          {LINKS.map((link) => (
-            <li key={link} className="flex items-center gap-3">
+    <footer className="border-t border-border">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <BrandMark size={36} />
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-4">
+            {LINKS.map((l) => (
               <a
+                key={l}
                 href="#"
-                className="text-sm font-bold text-foreground underline-offset-2 hover:underline"
+                className="font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-foreground"
               >
-                {link}
+                {l}
               </a>
-              <span className="text-border">|</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-4 max-w-4xl text-xs leading-relaxed text-muted-foreground">
-          SPCX6900 Token is a meme token created for entertainment purposes only
-          and has no association with any stocks, equities, securities, indices,
-          companies, or other financial or business entities, including SpaceX.
-          Any resemblance or association between SPCX6900 and the &quot;SpaceX
-          IPO&quot; is purely coincidental and intended for satirical or humorous
-          purposes. All depictions on this site are intended as parody and should
-          not be taken as factual representations. This website is unofficial and
-          operates solely as a fan page. SPCX6900 is a meme token with no
-          intrinsic value or expectation of financial return. By using this site,
-          users acknowledge that all interactions are at their own risk. This site
-          does not offer financial, legal, or professional advice. All content is
-          provided &quot;as-is,&quot; without warranties of any kind.
-        </p>
-
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-4">
-          <p className="font-mono text-xs text-muted-foreground">
-            © {new Date().getFullYear()} by $SPCX. All rights reserved!
-          </p>
-          <p className="font-mono text-xs font-bold text-foreground">
-            Powered by Mayhem
-          </p>
+            ))}
+          </nav>
         </div>
+
+        <div className="mt-10 select-none">
+          <div className="font-mono text-[15vw] font-extrabold leading-none tracking-tighter text-foreground/[0.04] sm:text-[12vw]">
+            SPCX6900
+          </div>
+        </div>
+
+        <p className="mt-6 max-w-4xl text-pretty text-[11px] leading-relaxed text-muted-foreground">
+          {DISCLAIMER}
+        </p>
+        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60">
+          {"© "}
+          {new Date().getFullYear()} SPCX6900 // Unofficial Parody Fan Page
+        </p>
       </div>
     </footer>
   )

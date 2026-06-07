@@ -23,6 +23,17 @@ export function formatPercent(value: number): string {
   return `${value.toFixed(2)}%`
 }
 
+// Display helper for metrics that may not have live data yet.
+export function metric(
+  value: number | null | undefined,
+  opts: { prefix?: string; suffix?: string; full?: boolean; placeholder?: string } = {},
+): string {
+  const { prefix = "", suffix = "", full = false, placeholder = "—" } = opts
+  if (value === null || value === undefined || !Number.isFinite(value)) return placeholder
+  const body = full ? formatFull(value) : formatNumber(value)
+  return `${prefix}${body}${suffix}`
+}
+
 export function timeAgo(timestamp: number): string {
   const seconds = Math.floor((Date.now() - timestamp) / 1000)
   if (seconds < 60) return "just now"
